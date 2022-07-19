@@ -113,7 +113,7 @@ class MakeInterfaceCommand extends Command
             $this->buildFormControllerReplacements();
         }          
       
-        $this->info('Replace - '. json_encode($this->replace));
+        //$this->info('Replace - '. json_encode($this->replace));
     }
 
 
@@ -138,7 +138,7 @@ class MakeInterfaceCommand extends Command
             '{{modelVariable}}' => lcfirst(class_basename($modelClass)),
             '{{class}}' => class_basename($modelClass),
             '{{ class }}' => class_basename($modelClass),
-             'path' => Str::beforeLast($modelClass, '\\'),
+             'namespacePath' => Str::beforeLast($modelClass, '\\'),
             '{{ namespace }}' => Str::beforeLast($modelClass, '\\'),
             '{{namespace}}' =>  Str::beforeLast($modelClass, '\\')
         ]);
@@ -171,7 +171,7 @@ class MakeInterfaceCommand extends Command
             '{{rootNamespace}}' => $rootNamespace,
             '{{class}}' => $className,
             '{{ class }}' => $className,          
-            'path' => $namespace,
+            'namespacePath' => $namespace,
             '{{ namespace }}' => $namespace,
             '{{namespace}}' => $namespace,
        ]);      
@@ -200,7 +200,7 @@ class MakeInterfaceCommand extends Command
             }
             
             $this->replace['{{ namespace }}'] = $namespace;
-            $this->replace['path'] = $namespace;
+            $this->replace['namespacePath'] = $namespace;
 
             [$storeRequestClass, $updateRequestClass] = $this->generateFormRequests(
                 $modelClass, $storeRequestClass, $updateRequestClass
@@ -271,7 +271,7 @@ class MakeInterfaceCommand extends Command
             }
             
             $this->replace['{{ namespace }}'] = $namespace;
-            $this->replace['path'] = $namespace;
+            $this->replace['namespacePath'] = $namespace;
 
             [$resourceClass, $collectionClass] = $this->generateFormResourceCollection(
                 $modelClass, $resourceClass, $collectionClass
@@ -327,7 +327,7 @@ class MakeInterfaceCommand extends Command
      */
     public function makeFile($name, $type)
     {
-        $path = base_path($this->replace['path']) .'\\'.$name.'.php';
+        $path = base_path($this->replace['namespacePath']) .'\\'.$name.'.php';
         $this->makeDirectory(dirname($path));
         $contents = $this->getSourceFile($type);
         
@@ -350,24 +350,23 @@ class MakeInterfaceCommand extends Command
         $stubsPath = '';
         switch ($type) {
             case "request":
-                $stubsPath = __DIR__ . '/../../../stubs/dex/request.stub';
+                $stubsPath = __DIR__ . '/../../../stubs/dexStubs/request.stub';
                 break;
             case "resource":
-                $stubsPath =  __DIR__ . '/../../../stubs/dex/resource.stub';
+                $stubsPath =  __DIR__ . '/../../../stubs/dexStubs/resource.stub';
                 break; 
             case "model":
-                $stubsPath =  __DIR__ . '/../../../stubs/dex/model.stub';
+                $stubsPath =  __DIR__ . '/../../../stubs/dexStubs/model.stub';
                 break; 
-            case "controller":
-                $this->info("->". base_path('App\Http\Controller\Api\BaseController.php'));
+            case "controller":              
                 if ($this->files->exists(base_path('App\\Http\\Controllers\\Api\\BaseController.php'))) {
                     if ($this->option('swagger')) {
-                        $stubsPath =  __DIR__ . '/../../../stubs/dex/controller.base.api.swagger.stub';
+                        $stubsPath =  __DIR__ . '/../../../stubs/dexStubs/controller.base.api.swagger.stub';
                     }else{
-                        $stubsPath =  __DIR__ . '/../../../stubs/dex/controller.base.api.stub';
+                        $stubsPath =  __DIR__ . '/../../../stubs/dexStubs/controller.base.api.stub';
                     }
                 }else{
-                    $stubsPath =  __DIR__ . '/../../../stubs/dex/controller.api.stub';
+                    $stubsPath =  __DIR__ . '/../../../stubs/dexStubs/controller.api.stub';
                 }
                 break;          
           default:
