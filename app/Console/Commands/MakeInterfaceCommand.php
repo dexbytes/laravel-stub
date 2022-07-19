@@ -72,8 +72,7 @@ class MakeInterfaceCommand extends Command
      */
     public function handle()
     {
-
-         
+                 
         if ($this->option('module')) {
             $this->module = $this->parseModule($this->option('module'));
             $this->info("Module Name: ".   $this->module);
@@ -110,19 +109,22 @@ class MakeInterfaceCommand extends Command
             $this->buildFormResourceReplacements();
         }  
 
-        
-     //   $this->info("Replace Data ". json_encode($this->replace)); 
+        if ($this->option('controller')) {
+            $this->buildFormControllerReplacements();
+        }          
+      
+        $this->info('Replace - '. json_encode($this->replace));
     }
 
 
-        /**
+   /**
      * Build the model replacement values.
      *
      * @return array
      */
     protected function buildModelReplacements()
     {       
-        $modelClass =$this->qualifyModel($this->name);    
+        $modelClass = $this->qualifyModel($this->name);    
         
         $this->replace =  array_merge( $this->replace , [
             'DummyFullModelClass' => $modelClass,
@@ -136,17 +138,46 @@ class MakeInterfaceCommand extends Command
             '{{modelVariable}}' => lcfirst(class_basename($modelClass)),
             '{{class}}' => class_basename($modelClass),
             '{{ class }}' => class_basename($modelClass),
-            'class' => class_basename($modelClass),
-            'namespace' => Str::beforeLast($modelClass, '\\'),
+             'path' => Str::beforeLast($modelClass, '\\'),
             '{{ namespace }}' => Str::beforeLast($modelClass, '\\'),
             '{{namespace}}' =>  Str::beforeLast($modelClass, '\\')
         ]);
 
-        if (!class_exists($modelClass)) {              
-            $this->makeFile(class_basename($modelClass), 'model');
+        $this->makeFile(class_basename($modelClass), 'model');
+             
+    }
+
+
+       /**
+     * Build the model replacement values.
+     *
+     * @return array
+     */
+    protected function buildFormControllerReplacements()
+    {       
+        $modelClass = $this->qualifyModel($this->name);    
+        $rootNamespace = $this->rootNamespace();
+
+        if($this->module != 'default'){
+            $namespace = 'App\\Http\\Controllers\\Api\\'.$this->module;
         }else{
-            $this->info("A {$modelClass} model does exist.");
-        }          
+            $namespace = 'App\\Http\\Controllers\\Api';
+        }
+
+        $className =  class_basename($modelClass).'Controller';
+        
+        $this->replace =  array_merge( $this->replace , [
+            '{{ rootNamespace }}' => $rootNamespace,
+            '{{rootNamespace}}' => $rootNamespace,
+            '{{class}}' => $className,
+            '{{ class }}' => $className,          
+            'path' => $namespace,
+            '{{ namespace }}' => $namespace,
+            '{{namespace}}' => $namespace,
+       ]);      
+
+       $this->makeFile($className, 'controller');
+             
     }
 
    /**
@@ -168,7 +199,8 @@ class MakeInterfaceCommand extends Command
                 $namespace = 'App\\Http\\Requests';
             }
             
-            $this->replace['namespace'] = $namespace;
+            $this->replace['{{ namespace }}'] = $namespace;
+            $this->replace['path'] = $namespace;
 
             [$storeRequestClass, $updateRequestClass] = $this->generateFormRequests(
                 $modelClass, $storeRequestClass, $updateRequestClass
@@ -208,11 +240,11 @@ class MakeInterfaceCommand extends Command
     protected function generateFormRequests($modelClass, $storeRequestClass, $updateRequestClass)
     {
         $storeRequestClass = 'Store'.class_basename($modelClass).'Request'; 
-        $this->replace['class'] = $storeRequestClass;       
+        $this->replace['{{ class }}'] = $storeRequestClass;       
         $this->makeFile($storeRequestClass, 'request');
 
         $updateRequestClass = 'Update'.class_basename($modelClass).'Request';
-        $this->replace['class'] = $updateRequestClass;   
+        $this->replace['{{ class }}'] = $updateRequestClass;   
         $this->makeFile($updateRequestClass, 'request');
 
         return [$storeRequestClass, $updateRequestClass];
@@ -238,7 +270,8 @@ class MakeInterfaceCommand extends Command
                 $namespace = 'App\\Http\\Resource';
             }
             
-            $this->replace['namespace'] = $namespace;
+            $this->replace['{{ namespace }}'] = $namespace;
+            $this->replace['path'] = $namespace;
 
             [$resourceClass, $collectionClass] = $this->generateFormResourceCollection(
                 $modelClass, $resourceClass, $collectionClass
@@ -264,8 +297,6 @@ class MakeInterfaceCommand extends Command
             '{{namespacedResources}}' => $namespacedResources,
         ]);
     }
-
-
     
     /**
      * Generate the form resource for the given model and classes.
@@ -278,11 +309,11 @@ class MakeInterfaceCommand extends Command
     protected function generateFormResourceCollection($modelClass, $resourceClass, $collectionClass)
     {
         $resourceClass = class_basename($modelClass).'Resource'; 
-        $this->replace['class'] = $resourceClass;       
+        $this->replace['{{ class }}'] = $resourceClass;       
         $this->makeFile($resourceClass, 'resource');
 
         $collectionClass = class_basename($modelClass).'Collection';
-        $this->replace['class'] = $collectionClass;   
+        $this->replace['{{ class }}'] = $collectionClass;   
         $this->makeFile($collectionClass, 'resource');
 
         return [$resourceClass, $collectionClass];
@@ -296,7 +327,7 @@ class MakeInterfaceCommand extends Command
      */
     public function makeFile($name, $type)
     {
-        $path = base_path($this->replace['namespace']) .'\\'.$name.'.php';
+        $path = base_path($this->replace['path']) .'\\'.$name.'.php';
         $this->makeDirectory(dirname($path));
         $contents = $this->getSourceFile($type);
         
@@ -328,7 +359,16 @@ class MakeInterfaceCommand extends Command
                 $stubsPath =  __DIR__ . '/../../../stubs/dex/model.stub';
                 break; 
             case "controller":
-                $stubsPath =  __DIR__ . '/../../../stubs/dex/controller.api.stub';
+                $this->info("->". base_path('App\Http\Controller\Api\BaseController.php'));
+                if ($this->files->exists(base_path('App\\Http\\Controllers\\Api\\BaseController.php'))) {
+                    if ($this->option('swagger')) {
+                        $stubsPath =  __DIR__ . '/../../../stubs/dex/controller.base.api.swagger.stub';
+                    }else{
+                        $stubsPath =  __DIR__ . '/../../../stubs/dex/controller.base.api.stub';
+                    }
+                }else{
+                    $stubsPath =  __DIR__ . '/../../../stubs/dex/controller.api.stub';
+                }
                 break;          
           default:
              $this->info("Stubs file not exist");  
@@ -449,7 +489,7 @@ class MakeInterfaceCommand extends Command
 
         foreach ($stubVariables as $search => $replace)
         {
-            $contents = str_replace('{{ '.$search.' }}' , $replace, $contents);
+            $contents = str_replace($search , $replace, $contents);
         }
 
         return $contents;
