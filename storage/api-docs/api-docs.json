@@ -254,14 +254,14 @@
                 }
             }
         },
-        "/api/category/": {
+        "/api/productCategory": {
             "get": {
                 "tags": [
-                    "Category"
+                    "ProductCategory"
                 ],
-                "summary": "Get list of Category",
-                "description": "Returns list of Category",
-                "operationId": "Category",
+                "summary": "Get list of ProductCategory",
+                "description": "Returns list of ProductCategory",
+                "operationId": "ProductCategory",
                 "responses": {
                     "201": {
                         "description": "Successfully",
@@ -297,11 +297,11 @@
             },
             "post": {
                 "tags": [
-                    "Category"
+                    "ProductCategory"
                 ],
-                "summary": "Store Category",
-                "description": "Returns Category data",
-                "operationId": "CategoryStore",
+                "summary": "Store ProductCategory",
+                "description": "Returns ProductCategory data",
+                "operationId": "ProductCategoryStore",
                 "requestBody": {
                     "content": {
                         "multipart/form-data": {
@@ -314,7 +314,7 @@
                 },
                 "responses": {
                     "201": {
-                        "description": "Category created Successfully",
+                        "description": "ProductCategory created Successfully",
                         "content": {
                             "application/json": {
                                 "schema": {}
@@ -322,7 +322,7 @@
                         }
                     },
                     "200": {
-                        "description": "Category created Successfully",
+                        "description": "ProductCategory created Successfully",
                         "content": {
                             "application/json": {
                                 "schema": {}
@@ -346,19 +346,19 @@
                 }
             }
         },
-        "/api/category/{id}": {
+        "/api/productCategory/{id}": {
             "get": {
                 "tags": [
-                    "Category"
+                    "ProductCategory"
                 ],
-                "summary": "Get Category information",
-                "description": "Returns Category information",
-                "operationId": "categoryGet",
+                "summary": "Get ProductCategory information",
+                "description": "Returns ProductCategory information",
+                "operationId": "productCategoryGet",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
-                        "description": "Category id",
+                        "description": "ProductCategory id",
                         "required": true,
                         "schema": {
                             "type": "integer"
@@ -398,18 +398,76 @@
                     }
                 }
             },
-            "delete": {
+            "put": {
                 "tags": [
-                    "Category"
+                    "ProductCategory"
                 ],
-                "summary": "Delete existing Category",
-                "description": "Deletes a record and returns no content",
-                "operationId": "deleteCategory",
+                "summary": "Update existing ProductCategory",
+                "description": "Returns updated ProductCategory data",
+                "operationId": "ProductCategoryUdpate",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
-                        "description": "Category id",
+                        "description": "id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {}
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "ProductCategory updated Successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "ProductCategory updated Successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "ProductCategory"
+                ],
+                "summary": "Delete existing ProductCategory",
+                "description": "Deletes a record and returns no content",
+                "operationId": "deleteProductCategory",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ProductCategory id",
                         "required": true,
                         "schema": {
                             "type": "integer"
@@ -418,7 +476,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Category deleted Successfully",
+                        "description": "ProductCategory deleted Successfully",
                         "content": {
                             "application/json": {
                                 "schema": {}

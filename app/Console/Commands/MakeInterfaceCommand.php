@@ -9,6 +9,7 @@ use InvalidArgumentException;
 use Illuminate\Console\Concerns\CreatesMatchingTest;
 use Illuminate\Support\Str;
 use Symfony\Component\Console\Input\InputArgument;
+use Illuminate\Support\Facades\Schema;
 
 
 class MakeInterfaceCommand extends Command
@@ -74,15 +75,87 @@ class MakeInterfaceCommand extends Command
     {
                  
         if ($this->option('module')) {
-            $this->module = $this->parseModule($this->option('module'));
+            $this->module = $this->parseModule(Str::camel($this->option('module')));
             $this->info("Module Name: ".   $this->module);
         }        
 
-        $this->name = $this->parseModel($this->argument('name'));
+        $this->name = $this->parseModel(Str::camel($this->argument('name')));
         $this->info("Name: ".   $this->name);
 
         $this->buildClass();
-        
+        $this->buildMigrations();
+        $this->generateSwagger();
+        $this->setRoute();
+    }
+
+
+     /**
+     * Build the migration with the given name.
+     * @return string
+     */
+    protected function setRoute()
+    {   
+        if ($this->confirm("Do you want to make a route?", true)) {
+            $path = base_path('routes/api.php');
+         
+            if ($this->files->exists($path)) {
+                
+                $modelClass = $this->qualifyModel($this->name);  
+                $controllerName = $modelClass.'Controller';
+
+                if($this->module != 'default'){                    
+                    $this->replace =  array_merge( $this->replace , [
+                        '{{controllerPath}}' => 'App\\Http\\Controllers\\Api\\'.$this->module.'\\'. $controllerName,
+                        '{{ controllerPath }}' => 'App\\Http\\Controllers\\Api\\'.$this->module.'\\'. $controllerName,
+                    ]);                  
+                }else{
+                    $this->replace =  array_merge( $this->replace , [
+                        '{{controllerPath}}' => 'App\\Http\\Controllers\\Api\\'.$controllerName,
+                        '{{ controllerPath }}' => 'App\\Http\\Controllers\\Api\\'.$controllerName,
+                    ]);  
+                }
+
+                $contents = $this->getSourceFile('route');
+                $this->info("Generate Route : {$contents}");
+
+                $this->files->append($path, $contents);           
+                $this->info("Route : {$path} updated");   
+
+            }else{
+                $this->info("Route : {$path} not exists");
+            } 
+        }
+    }
+    
+     /**
+     * Build the migration with the given name.
+     *
+     * @param  string  $name
+     * @return string
+     */
+    protected function generateSwagger()
+    {   
+        if ($this->confirm("Do you want to update api documentation?", true)) {
+            $this->call('l5-swagger:generate');
+        }
+    }
+
+
+     /**
+     * Build the migration with the given name.
+     *
+     * @param  string  $name
+     * @return string
+     */
+    protected function buildMigrations()
+    {   
+        $tableName = Pluralizer::plural(Str::snake($this->name));
+
+        if (!Schema::hasTable($tableName) &&
+            $this->confirm("A {$tableName} table does not exist. Do you want to create it?", true)) {
+            $this->call('make:migration', ['name' => 'create_'.$tableName.'_table']);
+            $this->call('migrate');            
+        }
     }
 
 
@@ -357,6 +430,9 @@ class MakeInterfaceCommand extends Command
                 break; 
             case "model":
                 $stubsPath =  __DIR__ . '/../../../stubs/dexStubs/model.stub';
+                break; 
+            case "route":
+                $stubsPath =  __DIR__ . '/../../../stubs/dexStubs/route.stub';
                 break; 
             case "controller":              
                 if ($this->files->exists(base_path('App\\Http\\Controllers\\Api\\BaseController.php'))) {
