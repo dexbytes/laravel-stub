@@ -19,7 +19,7 @@ class {{ class }} extends BaseController
     
      /**
         * @OA\Get(
-        * path="/api/{{ modelVariable }}",
+        * path="/api/{{ endPoint }}",
         * operationId="{{ model }}",
         * tags={"{{ model }}"},
         * summary="Get list of {{ model }}",
@@ -50,7 +50,7 @@ class {{ class }} extends BaseController
 
     /**
      * @OA\POST(
-     * path="/api/{{ modelVariable }}",
+     * path="/api/{{ endPoint }}",
      * operationId="{{ model }}Store",
      * tags={"{{ model }}"},
      * summary="Store {{ model }}",
@@ -95,7 +95,7 @@ class {{ class }} extends BaseController
 
    /**
         * @OA\Get(
-        * path="/api/{{ modelVariable }}/{id}",
+        * path="/api/{{ endPoint }}/{id}",
         * operationId="{{ modelVariable }}Get",
         * tags={"{{ model }}"},
         * summary="Get {{ model }} information",
@@ -142,7 +142,7 @@ class {{ class }} extends BaseController
 
    /**
      * @OA\Put(
-     * path="/api/{{ modelVariable }}/{id}",
+     * path="/api/{{ endPoint }}/{id}",
      * operationId="{{ model }}Udpate",
      * tags={"{{ model }}"},
      * summary="Update existing {{ model }}",
@@ -192,7 +192,7 @@ class {{ class }} extends BaseController
 
     /**
      * @OA\Delete(
-     *      path="/api/{{ modelVariable }}/{id}",
+     *      path="/api/{{ endPoint }}/{id}",
      *      operationId="delete{{ model }}",
      *      tags={"{{ model }}"},
      *      summary="Delete existing {{ model }}",

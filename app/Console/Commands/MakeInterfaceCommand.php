@@ -81,13 +81,42 @@ class MakeInterfaceCommand extends Command
 
         $this->name = $this->parseModel(Str::camel($this->argument('name')));
         $this->info("Name: ".   $this->name);
-
+        
         $this->buildClass();
         $this->buildMigrations();
         $this->generateSwagger();
         $this->setRoute();
     }
 
+
+   /**
+     * Generate the end point with the given name.
+     * @return string
+     */
+    protected function generateEndPoint()
+    {  
+        $endPoint = Str::snake($this->name, '-'); 
+
+        if($this->module != 'default'){   
+            $this->replace =  array_merge( $this->replace , [
+                '{{endPoint}}' => $endPoint,
+                '{{ endPoint }}' => $endPoint,
+            ]);  
+        }else{
+            if(Str::snake($this->module) != $endPoint){
+                $this->replace =  array_merge($this->replace , [
+                    '{{endPoint}}' => Str::snake($this->module).'/'.$endPoint,
+                    '{{ endPoint }}' => Str::snake($this->module).'/'.$endPoint,
+                ]);
+            }else{
+                $this->replace =  array_merge( $this->replace , [
+                    '{{endPoint}}' => $endPoint,
+                    '{{ endPoint }}' => $endPoint,
+                ]);   
+            }
+        }
+    }
+    
 
      /**
      * Build the migration with the given name.
@@ -97,12 +126,11 @@ class MakeInterfaceCommand extends Command
     {   
         if ($this->confirm("Do you want to make a route?", true)) {
             $path = base_path('routes/api.php');
+            
          
-            if ($this->files->exists($path)) {
+            if ($this->files->exists($path)) {                
                 
-                $modelClass = $this->qualifyModel($this->name);  
-                $controllerName = $modelClass.'Controller';
-
+                $controllerName = $this->name.'Controller';
                 if($this->module != 'default'){                    
                     $this->replace =  array_merge( $this->replace , [
                         '{{controllerPath}}' => 'App\\Http\\Controllers\\Api\\'.$this->module.'\\'. $controllerName,
@@ -183,6 +211,7 @@ class MakeInterfaceCommand extends Command
         }  
 
         if ($this->option('controller')) {
+            $this->generateEndPoint();
             $this->buildFormControllerReplacements();
         }          
       

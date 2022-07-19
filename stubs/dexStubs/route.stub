@@ -1,2 +1,2 @@
 
-Route::apiResource('/{{ modelVariable }}','{{ controllerPath }}'); 
+Route::apiResource('/{{ endPoint }}','{{ controllerPath }}'); 

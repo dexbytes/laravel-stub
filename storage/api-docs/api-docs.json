@@ -5,14 +5,14 @@
         "version": "1.0.0"
     },
     "paths": {
-        "/api/blog": {
+        "/api/{{ endPoint }}": {
             "get": {
                 "tags": [
-                    "Blog"
+                    "FaqCategory"
                 ],
-                "summary": "Get list of Blog",
-                "description": "Returns list of Blog",
-                "operationId": "Blog",
+                "summary": "Get list of FaqCategory",
+                "description": "Returns list of FaqCategory",
+                "operationId": "FaqCategory",
                 "responses": {
                     "201": {
                         "description": "Successfully",
@@ -48,11 +48,11 @@
             },
             "post": {
                 "tags": [
-                    "Blog"
+                    "FaqCategory"
                 ],
-                "summary": "Store Blog",
-                "description": "Returns Blog data",
-                "operationId": "BlogStore",
+                "summary": "Store FaqCategory",
+                "description": "Returns FaqCategory data",
+                "operationId": "FaqCategoryStore",
                 "requestBody": {
                     "content": {
                         "multipart/form-data": {
@@ -65,7 +65,7 @@
                 },
                 "responses": {
                     "201": {
-                        "description": "Blog created Successfully",
+                        "description": "FaqCategory created Successfully",
                         "content": {
                             "application/json": {
                                 "schema": {}
@@ -73,7 +73,7 @@
                         }
                     },
                     "200": {
-                        "description": "Blog created Successfully",
+                        "description": "FaqCategory created Successfully",
                         "content": {
                             "application/json": {
                                 "schema": {}
@@ -97,19 +97,19 @@
                 }
             }
         },
-        "/api/blog/{id}": {
+        "/api/{{ endPoint }}/{id}": {
             "get": {
                 "tags": [
-                    "Blog"
+                    "FaqCategory"
                 ],
-                "summary": "Get Blog information",
-                "description": "Returns Blog information",
-                "operationId": "blogGet",
+                "summary": "Get FaqCategory information",
+                "description": "Returns FaqCategory information",
+                "operationId": "faqCategoryGet",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
-                        "description": "Blog id",
+                        "description": "FaqCategory id",
                         "required": true,
                         "schema": {
                             "type": "integer"
@@ -151,11 +151,11 @@
             },
             "put": {
                 "tags": [
-                    "Blog"
+                    "FaqCategory"
                 ],
-                "summary": "Update existing Blog",
-                "description": "Returns updated Blog data",
-                "operationId": "BlogUdpate",
+                "summary": "Update existing FaqCategory",
+                "description": "Returns updated FaqCategory data",
+                "operationId": "FaqCategoryUdpate",
                 "parameters": [
                     {
                         "name": "id",
@@ -176,7 +176,7 @@
                 },
                 "responses": {
                     "201": {
-                        "description": "Blog updated Successfully",
+                        "description": "FaqCategory updated Successfully",
                         "content": {
                             "application/json": {
                                 "schema": {}
@@ -184,7 +184,7 @@
                         }
                     },
                     "200": {
-                        "description": "Blog updated Successfully",
+                        "description": "FaqCategory updated Successfully",
                         "content": {
                             "application/json": {
                                 "schema": {}
@@ -209,16 +209,16 @@
             },
             "delete": {
                 "tags": [
-                    "Blog"
+                    "FaqCategory"
                 ],
-                "summary": "Delete existing Blog",
+                "summary": "Delete existing FaqCategory",
                 "description": "Deletes a record and returns no content",
-                "operationId": "deleteBlog",
+                "operationId": "deleteFaqCategory",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
-                        "description": "Blog id",
+                        "description": "FaqCategory id",
                         "required": true,
                         "schema": {
                             "type": "integer"
@@ -227,256 +227,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Blog deleted Successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    },
-                    "204": {
-                        "description": "Successful operation",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthenticated"
-                    },
-                    "403": {
-                        "description": "Forbidden"
-                    },
-                    "404": {
-                        "description": "Resource Not Found"
-                    }
-                }
-            }
-        },
-        "/api/productCategory": {
-            "get": {
-                "tags": [
-                    "ProductCategory"
-                ],
-                "summary": "Get list of ProductCategory",
-                "description": "Returns list of ProductCategory",
-                "operationId": "ProductCategory",
-                "responses": {
-                    "201": {
-                        "description": "Successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    },
-                    "200": {
-                        "description": "Successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    },
-                    "422": {
-                        "description": "Unprocessable Entity",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad request"
-                    },
-                    "404": {
-                        "description": "Resource Not Found"
-                    }
-                }
-            },
-            "post": {
-                "tags": [
-                    "ProductCategory"
-                ],
-                "summary": "Store ProductCategory",
-                "description": "Returns ProductCategory data",
-                "operationId": "ProductCategoryStore",
-                "requestBody": {
-                    "content": {
-                        "multipart/form-data": {
-                            "schema": {}
-                        },
-                        "application/json": {
-                            "schema": {}
-                        }
-                    }
-                },
-                "responses": {
-                    "201": {
-                        "description": "ProductCategory created Successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    },
-                    "200": {
-                        "description": "ProductCategory created Successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    },
-                    "422": {
-                        "description": "Unprocessable Entity",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad request"
-                    },
-                    "404": {
-                        "description": "Resource Not Found"
-                    }
-                }
-            }
-        },
-        "/api/productCategory/{id}": {
-            "get": {
-                "tags": [
-                    "ProductCategory"
-                ],
-                "summary": "Get ProductCategory information",
-                "description": "Returns ProductCategory information",
-                "operationId": "productCategoryGet",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "ProductCategory id",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "responses": {
-                    "201": {
-                        "description": "Successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    },
-                    "200": {
-                        "description": "Successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    },
-                    "422": {
-                        "description": "Unprocessable Entity",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad request"
-                    },
-                    "404": {
-                        "description": "Resource Not Found"
-                    }
-                }
-            },
-            "put": {
-                "tags": [
-                    "ProductCategory"
-                ],
-                "summary": "Update existing ProductCategory",
-                "description": "Returns updated ProductCategory data",
-                "operationId": "ProductCategoryUdpate",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "id",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {}
-                        }
-                    }
-                },
-                "responses": {
-                    "201": {
-                        "description": "ProductCategory updated Successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    },
-                    "200": {
-                        "description": "ProductCategory updated Successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    },
-                    "422": {
-                        "description": "Unprocessable Entity",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad request"
-                    },
-                    "404": {
-                        "description": "Resource Not Found"
-                    }
-                }
-            },
-            "delete": {
-                "tags": [
-                    "ProductCategory"
-                ],
-                "summary": "Delete existing ProductCategory",
-                "description": "Deletes a record and returns no content",
-                "operationId": "deleteProductCategory",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "ProductCategory id",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "ProductCategory deleted Successfully",
+                        "description": "FaqCategory deleted Successfully",
                         "content": {
                             "application/json": {
                                 "schema": {}
