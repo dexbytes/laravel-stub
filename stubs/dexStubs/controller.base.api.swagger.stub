@@ -21,9 +21,9 @@ class {{ class }} extends BaseController
         * @OA\Get(
         * path="/api/{{ endPoint }}",
         * operationId="{{ model }}",
-        * tags={"{{ model }}"},
-        * summary="Get list of {{ model }}",
-        * description="Returns list of {{ model }}",
+        * tags={"{{ tagName }}"},
+        * summary="Get list of {{ tagName }}",
+        * description="Returns list of {{ tagName }}",
         *      @OA\Response(
         *          response=201,
         *          description="Successfully",
@@ -52,9 +52,9 @@ class {{ class }} extends BaseController
      * @OA\POST(
      * path="/api/{{ endPoint }}",
      * operationId="{{ model }}Store",
-     * tags={"{{ model }}"},
-     * summary="Store {{ model }}",
-     * description="Returns {{ model }} data",
+     * tags={"{{ tagName }}"},
+     * summary="Store {{ tagName }}",
+     * description="Returns {{ tagName }} data",
      *         @OA\RequestBody(
      *         @OA\JsonContent(),
      *         @OA\MediaType(
@@ -64,12 +64,12 @@ class {{ class }} extends BaseController
      *    ),
      *      @OA\Response(
      *          response=201,
-     *          description="{{ model }} created Successfully",
+     *          description="{{ tagName }} created Successfully",
      *          @OA\JsonContent()
      *       ),
      *      @OA\Response(
      *          response=200,
-     *          description="{{ model }} created Successfully",
+     *          description="{{ tagName }} created Successfully",
      *          @OA\JsonContent()
      *       ),
      *      @OA\Response(
@@ -97,12 +97,12 @@ class {{ class }} extends BaseController
         * @OA\Get(
         * path="/api/{{ endPoint }}/{id}",
         * operationId="{{ modelVariable }}Get",
-        * tags={"{{ model }}"},
-        * summary="Get {{ model }} information",
-        * description="Returns {{ model }} information",
+        * tags={"{{ tagName }}"},
+        * summary="Get {{ tagName }} information",
+        * description="Returns {{ tagName }} information",
         *  @OA\Parameter(
         *          name="id",
-        *          description="{{ model }} id",
+        *          description="{{ tagName }} id",
         *          required=true,
         *          in="path",
         *          @OA\Schema(
@@ -144,9 +144,9 @@ class {{ class }} extends BaseController
      * @OA\Put(
      * path="/api/{{ endPoint }}/{id}",
      * operationId="{{ model }}Udpate",
-     * tags={"{{ model }}"},
-     * summary="Update existing {{ model }}",
-     * description="Returns updated {{ model }} data",
+     * tags={"{{ tagName }}"},
+     * summary="Update existing {{ tagName }}",
+     * description="Returns updated {{ tagName }} data",
      *  @OA\Parameter(
     *          name="id",
     *          description="id",
@@ -161,12 +161,12 @@ class {{ class }} extends BaseController
      *    ),
      *      @OA\Response(
      *          response=201,
-     *          description="{{ model }} updated Successfully",
+     *          description="{{ tagName }} updated Successfully",
      *          @OA\JsonContent()
      *       ),
      *      @OA\Response(
      *          response=200,
-     *          description="{{ model }} updated Successfully",
+     *          description="{{ tagName }} updated Successfully",
      *          @OA\JsonContent()
      *       ),
      *      @OA\Response(
@@ -194,12 +194,12 @@ class {{ class }} extends BaseController
      * @OA\Delete(
      *      path="/api/{{ endPoint }}/{id}",
      *      operationId="delete{{ model }}",
-     *      tags={"{{ model }}"},
-     *      summary="Delete existing {{ model }}",
+     *      tags={"{{ tagName }}"},
+     *      summary="Delete existing {{ tagName }}",
      *      description="Deletes a record and returns no content",
      *      @OA\Parameter(
      *          name="id",
-     *          description="{{ model }} id",
+     *          description="{{ tagName }} id",
      *          required=true,
      *          in="path",
      *          @OA\Schema(
@@ -208,7 +208,7 @@ class {{ class }} extends BaseController
      *      ),
      *       @OA\Response(
      *          response=200,
-     *          description="{{ model }} deleted Successfully",
+     *          description="{{ tagName }} deleted Successfully",
      *          @OA\JsonContent()
      *       ),
      *      @OA\Response(

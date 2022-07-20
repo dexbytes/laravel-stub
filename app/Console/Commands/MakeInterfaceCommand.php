@@ -101,17 +101,20 @@ class MakeInterfaceCommand extends Command
             $this->replace =  array_merge( $this->replace , [
                 '{{endPoint}}' => $endPoint,
                 '{{ endPoint }}' => $endPoint,
+                '{{ tagName }}' => Str::ucwords(Str::snake($this->name, ' '))
             ]);  
         }else{              
-            if(Str::snake($this->module) != $endPoint){
+            if(Str::snake($this->getSingularClassName($this->module)) != $endPoint){
                 $this->replace =  array_merge($this->replace , [
                     '{{endPoint}}' => Str::snake($this->module).'/'.$endPoint,
                     '{{ endPoint }}' => Str::snake($this->module).'/'.$endPoint,
+                    '{{ tagName }}' => Str::ucwords(Str::snake($this->name, ' '))
                 ]);
             }else{
                 $this->replace =  array_merge( $this->replace , [
                     '{{endPoint}}' => $endPoint,
                     '{{ endPoint }}' => $endPoint,
+                    '{{ tagName }}' => Str::ucwords(Str::snake($this->name, ' '))
                 ]);   
             }
         }
@@ -513,7 +516,7 @@ class MakeInterfaceCommand extends Command
             throw new InvalidArgumentException('Module name contains invalid characters.');
         }
 
-        return $this->getSingularClassName($module);
+        return $this->getPluralClassName($module);
 
     }
 
@@ -618,6 +621,16 @@ class MakeInterfaceCommand extends Command
     public function getSingularClassName($name)
     {
         return ucwords(Pluralizer::singular($name));
+    }
+
+    /**
+     * Return the Singular Capitalize Name
+     * @param $name
+     * @return string
+     */
+    public function getPluralClassName($name)
+    {
+        return ucwords(Pluralizer::plural($name));
     }
 
     /**
