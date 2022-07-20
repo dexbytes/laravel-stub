@@ -19,7 +19,7 @@ class MakeInterfaceCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'make:interface {name} {--md|module=default} {--all} {--m|model} {--c|controller} {--rs|resource} {--rq|request} {--s|swagger}';
+    protected $signature = 'make:interface {name} {--md|module=Default} {--all} {--m|model} {--c|controller} {--rs|resource} {--rq|request} {--s|swagger}';
 
     /**
      * The console command description.
@@ -39,7 +39,7 @@ class MakeInterfaceCommand extends Command
      *
      * @var string
      */
-    protected $module = 'default';
+    protected $module = 'Default';
 
      /**
      * the stub variables present in stub to its value
@@ -97,12 +97,12 @@ class MakeInterfaceCommand extends Command
     {  
         $endPoint = Str::snake($this->name, '-'); 
 
-        if($this->module != 'default'){   
+        if($this->module == 'Default'){   
             $this->replace =  array_merge( $this->replace , [
                 '{{endPoint}}' => $endPoint,
                 '{{ endPoint }}' => $endPoint,
             ]);  
-        }else{
+        }else{              
             if(Str::snake($this->module) != $endPoint){
                 $this->replace =  array_merge($this->replace , [
                     '{{endPoint}}' => Str::snake($this->module).'/'.$endPoint,
@@ -131,7 +131,7 @@ class MakeInterfaceCommand extends Command
             if ($this->files->exists($path)) {                
                 
                 $controllerName = $this->name.'Controller';
-                if($this->module != 'default'){                    
+                if($this->module != 'Default'){                    
                     $this->replace =  array_merge( $this->replace , [
                         '{{controllerPath}}' => 'App\\Http\\Controllers\\Api\\'.$this->module.'\\'. $controllerName,
                         '{{ controllerPath }}' => 'App\\Http\\Controllers\\Api\\'.$this->module.'\\'. $controllerName,
@@ -260,7 +260,7 @@ class MakeInterfaceCommand extends Command
         $modelClass = $this->qualifyModel($this->name);    
         $rootNamespace = $this->rootNamespace();
 
-        if($this->module != 'default'){
+        if($this->module != 'Default'){
             $namespace = 'App\\Http\\Controllers\\Api\\'.$this->module;
         }else{
             $namespace = 'App\\Http\\Controllers\\Api';
@@ -295,7 +295,7 @@ class MakeInterfaceCommand extends Command
         ];
 
         if ($this->option('request')) {
-            if($this->module != 'default'){
+            if($this->module != 'Default'){
                 $namespace = 'App\\Http\\Requests\\'.$this->module;
             }else{
                 $namespace = 'App\\Http\\Requests';
@@ -366,7 +366,7 @@ class MakeInterfaceCommand extends Command
         ];
 
         if ($this->option('resource')) {
-            if($this->module != 'default'){
+            if($this->module != 'Default'){
                 $namespace = 'App\\Http\\Resource\\'.$this->module;
             }else{
                 $namespace = 'App\\Http\\Resource';
@@ -537,7 +537,7 @@ class MakeInterfaceCommand extends Command
             return $model;
         }
 
-        if($this->module != 'default'){
+        if($this->module != 'Default'){
             $model = $this->module.'\\'.$model;
         }
 
