@@ -89,6 +89,39 @@ class MakeInterfaceCommand extends Command
     }
 
 
+      /**
+     * Build the class with the given name.
+     *
+     * Remove the base controller import if we are already in the base namespace.
+     *
+     * @param  string  $name
+     * @return string
+     */
+    protected function buildClass()
+    {
+
+        if ($this->option('model')) {
+            $this->buildModelReplacements();           
+        }
+
+        if ($this->option('request')) {
+            $this->buildFormRequestReplacements();
+        }        
+
+        if ($this->option('resource')) {
+            $this->buildFormResourceReplacements();
+        }  
+
+        if ($this->option('controller')) {
+            $this->generateEndPoint();
+            $this->buildFormControllerReplacements();
+        }          
+      
+        //$this->info('Replace - '. json_encode($this->replace));
+    }
+
+
+
    /**
      * Generate the end point with the given name.
      * @return string
@@ -101,20 +134,20 @@ class MakeInterfaceCommand extends Command
             $this->replace =  array_merge( $this->replace , [
                 '{{endPoint}}' => $endPoint,
                 '{{ endPoint }}' => $endPoint,
-                '{{ tagName }}' => Str::ucwords(Str::snake($this->name, ' '))
+                '{{ tagName }}' =>  ucwords(Str::snake($this->name, ' '))
             ]);  
         }else{              
             if(Str::snake($this->getSingularClassName($this->module)) != $endPoint){
                 $this->replace =  array_merge($this->replace , [
                     '{{endPoint}}' => Str::snake($this->module).'/'.$endPoint,
                     '{{ endPoint }}' => Str::snake($this->module).'/'.$endPoint,
-                    '{{ tagName }}' => Str::ucwords(Str::snake($this->name, ' '))
+                    '{{ tagName }}' =>  ucwords(Str::snake($this->name, ' '))
                 ]);
             }else{
                 $this->replace =  array_merge( $this->replace , [
                     '{{endPoint}}' => $endPoint,
                     '{{ endPoint }}' => $endPoint,
-                    '{{ tagName }}' => Str::ucwords(Str::snake($this->name, ' '))
+                    '{{ tagName }}' =>  ucwords(Str::snake($this->name, ' '))
                 ]);   
             }
         }
@@ -190,38 +223,7 @@ class MakeInterfaceCommand extends Command
     }
 
 
-     /**
-     * Build the class with the given name.
-     *
-     * Remove the base controller import if we are already in the base namespace.
-     *
-     * @param  string  $name
-     * @return string
-     */
-    protected function buildClass()
-    {
-
-        if ($this->option('model')) {
-            $this->buildModelReplacements();           
-        }
-
-        if ($this->option('request')) {
-            $this->buildFormRequestReplacements();
-        }        
-
-        if ($this->option('resource')) {
-            $this->buildFormResourceReplacements();
-        }  
-
-        if ($this->option('controller')) {
-            $this->generateEndPoint();
-            $this->buildFormControllerReplacements();
-        }          
-      
-        //$this->info('Replace - '. json_encode($this->replace));
-    }
-
-
+   
    /**
      * Build the model replacement values.
      *

@@ -5,14 +5,14 @@
         "version": "1.0.0"
     },
     "paths": {
-        "/api/faq/faq-category": {
+        "/api/faqs/faq-category": {
             "get": {
                 "tags": [
-                    "FaqCategory"
+                    "Faq Category"
                 ],
-                "summary": "Get list of FaqCategory",
-                "description": "Returns list of FaqCategory",
-                "operationId": "FaqCategory",
+                "summary": "Get list of Faq Category",
+                "description": "Returns list of Faq Category",
+                "operationId": "Faq Category",
                 "responses": {
                     "201": {
                         "description": "Successfully",
@@ -48,11 +48,11 @@
             },
             "post": {
                 "tags": [
-                    "FaqCategory"
+                    "Faq Category"
                 ],
-                "summary": "Store FaqCategory",
-                "description": "Returns FaqCategory data",
-                "operationId": "FaqCategoryStore",
+                "summary": "Store Faq Category",
+                "description": "Returns Faq Category data",
+                "operationId": "Faq CategoryStore",
                 "requestBody": {
                     "content": {
                         "multipart/form-data": {
@@ -65,7 +65,7 @@
                 },
                 "responses": {
                     "201": {
-                        "description": "FaqCategory created Successfully",
+                        "description": "Faq Category created Successfully",
                         "content": {
                             "application/json": {
                                 "schema": {}
@@ -73,7 +73,7 @@
                         }
                     },
                     "200": {
-                        "description": "FaqCategory created Successfully",
+                        "description": "Faq Category created Successfully",
                         "content": {
                             "application/json": {
                                 "schema": {}
@@ -97,19 +97,19 @@
                 }
             }
         },
-        "/api/faq/faq-category/{id}": {
+        "/api/faqs/faq-category/{id}": {
             "get": {
                 "tags": [
-                    "FaqCategory"
+                    "Faq Category"
                 ],
-                "summary": "Get FaqCategory information",
-                "description": "Returns FaqCategory information",
-                "operationId": "faqCategoryGet",
+                "summary": "Get Faq Category information",
+                "description": "Returns Faq Category information",
+                "operationId": "Faq CategoryGet",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
-                        "description": "FaqCategory id",
+                        "description": "Faq Category id",
                         "required": true,
                         "schema": {
                             "type": "integer"
@@ -151,11 +151,11 @@
             },
             "put": {
                 "tags": [
-                    "FaqCategory"
+                    "Faq Category"
                 ],
-                "summary": "Update existing FaqCategory",
-                "description": "Returns updated FaqCategory data",
-                "operationId": "FaqCategoryUdpate",
+                "summary": "Update existing Faq Category",
+                "description": "Returns updated Faq Category data",
+                "operationId": "Faq CategoryUdpate",
                 "parameters": [
                     {
                         "name": "id",
@@ -176,7 +176,7 @@
                 },
                 "responses": {
                     "201": {
-                        "description": "FaqCategory updated Successfully",
+                        "description": "Faq Category updated Successfully",
                         "content": {
                             "application/json": {
                                 "schema": {}
@@ -184,7 +184,7 @@
                         }
                     },
                     "200": {
-                        "description": "FaqCategory updated Successfully",
+                        "description": "Faq Category updated Successfully",
                         "content": {
                             "application/json": {
                                 "schema": {}
@@ -209,16 +209,16 @@
             },
             "delete": {
                 "tags": [
-                    "FaqCategory"
+                    "Faq Category"
                 ],
-                "summary": "Delete existing FaqCategory",
+                "summary": "Delete existing Faq Category",
                 "description": "Deletes a record and returns no content",
-                "operationId": "deleteFaqCategory",
+                "operationId": "deleteFaq Category",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
-                        "description": "FaqCategory id",
+                        "description": "Faq Category id",
                         "required": true,
                         "schema": {
                             "type": "integer"
@@ -227,7 +227,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "FaqCategory deleted Successfully",
+                        "description": "Faq Category deleted Successfully",
                         "content": {
                             "application/json": {
                                 "schema": {}
@@ -305,7 +305,17 @@
                 "requestBody": {
                     "content": {
                         "multipart/form-data": {
-                            "schema": {}
+                            "schema": {
+                                "required": [
+                                    "title"
+                                ],
+                                "properties": {
+                                    "title": {
+                                        "type": "text"
+                                    }
+                                },
+                                "type": "object"
+                            }
                         },
                         "application/json": {
                             "schema": {}
@@ -353,7 +363,7 @@
                 ],
                 "summary": "Get Faq information",
                 "description": "Returns Faq information",
-                "operationId": "faqGet",
+                "operationId": "FaqGet",
                 "parameters": [
                     {
                         "name": "id",
@@ -418,6 +428,19 @@
                 ],
                 "requestBody": {
                     "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "required": [
+                                    "title"
+                                ],
+                                "properties": {
+                                    "title": {
+                                        "type": "text"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        },
                         "application/json": {
                             "schema": {}
                         }
@@ -477,1251 +500,6 @@
                 "responses": {
                     "200": {
                         "description": "Faq deleted Successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    },
-                    "204": {
-                        "description": "Successful operation",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthenticated"
-                    },
-                    "403": {
-                        "description": "Forbidden"
-                    },
-                    "404": {
-                        "description": "Resource Not Found"
-                    }
-                }
-            }
-        },
-        "/api/product/product-category": {
-            "get": {
-                "tags": [
-                    "ProductCategory"
-                ],
-                "summary": "Get list of ProductCategory",
-                "description": "Returns list of ProductCategory",
-                "operationId": "ProductCategory",
-                "responses": {
-                    "201": {
-                        "description": "Successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    },
-                    "200": {
-                        "description": "Successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    },
-                    "422": {
-                        "description": "Unprocessable Entity",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad request"
-                    },
-                    "404": {
-                        "description": "Resource Not Found"
-                    }
-                }
-            },
-            "post": {
-                "tags": [
-                    "ProductCategory"
-                ],
-                "summary": "Store ProductCategory",
-                "description": "Returns ProductCategory data",
-                "operationId": "ProductCategoryStore",
-                "requestBody": {
-                    "content": {
-                        "multipart/form-data": {
-                            "schema": {}
-                        },
-                        "application/json": {
-                            "schema": {}
-                        }
-                    }
-                },
-                "responses": {
-                    "201": {
-                        "description": "ProductCategory created Successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    },
-                    "200": {
-                        "description": "ProductCategory created Successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    },
-                    "422": {
-                        "description": "Unprocessable Entity",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad request"
-                    },
-                    "404": {
-                        "description": "Resource Not Found"
-                    }
-                }
-            }
-        },
-        "/api/product/product-category/{id}": {
-            "get": {
-                "tags": [
-                    "ProductCategory"
-                ],
-                "summary": "Get ProductCategory information",
-                "description": "Returns ProductCategory information",
-                "operationId": "productCategoryGet",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "ProductCategory id",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "responses": {
-                    "201": {
-                        "description": "Successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    },
-                    "200": {
-                        "description": "Successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    },
-                    "422": {
-                        "description": "Unprocessable Entity",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad request"
-                    },
-                    "404": {
-                        "description": "Resource Not Found"
-                    }
-                }
-            },
-            "put": {
-                "tags": [
-                    "ProductCategory"
-                ],
-                "summary": "Update existing ProductCategory",
-                "description": "Returns updated ProductCategory data",
-                "operationId": "ProductCategoryUdpate",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "id",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {}
-                        }
-                    }
-                },
-                "responses": {
-                    "201": {
-                        "description": "ProductCategory updated Successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    },
-                    "200": {
-                        "description": "ProductCategory updated Successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    },
-                    "422": {
-                        "description": "Unprocessable Entity",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad request"
-                    },
-                    "404": {
-                        "description": "Resource Not Found"
-                    }
-                }
-            },
-            "delete": {
-                "tags": [
-                    "ProductCategory"
-                ],
-                "summary": "Delete existing ProductCategory",
-                "description": "Deletes a record and returns no content",
-                "operationId": "deleteProductCategory",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "ProductCategory id",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "ProductCategory deleted Successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    },
-                    "204": {
-                        "description": "Successful operation",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthenticated"
-                    },
-                    "403": {
-                        "description": "Forbidden"
-                    },
-                    "404": {
-                        "description": "Resource Not Found"
-                    }
-                }
-            }
-        },
-        "/api/product": {
-            "get": {
-                "tags": [
-                    "Product"
-                ],
-                "summary": "Get list of Product",
-                "description": "Returns list of Product",
-                "operationId": "Product",
-                "responses": {
-                    "201": {
-                        "description": "Successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    },
-                    "200": {
-                        "description": "Successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    },
-                    "422": {
-                        "description": "Unprocessable Entity",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad request"
-                    },
-                    "404": {
-                        "description": "Resource Not Found"
-                    }
-                }
-            },
-            "post": {
-                "tags": [
-                    "Product"
-                ],
-                "summary": "Store Product",
-                "description": "Returns Product data",
-                "operationId": "ProductStore",
-                "requestBody": {
-                    "content": {
-                        "multipart/form-data": {
-                            "schema": {}
-                        },
-                        "application/json": {
-                            "schema": {}
-                        }
-                    }
-                },
-                "responses": {
-                    "201": {
-                        "description": "Product created Successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    },
-                    "200": {
-                        "description": "Product created Successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    },
-                    "422": {
-                        "description": "Unprocessable Entity",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad request"
-                    },
-                    "404": {
-                        "description": "Resource Not Found"
-                    }
-                }
-            }
-        },
-        "/api/product/{id}": {
-            "get": {
-                "tags": [
-                    "Product"
-                ],
-                "summary": "Get Product information",
-                "description": "Returns Product information",
-                "operationId": "productGet",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "Product id",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "responses": {
-                    "201": {
-                        "description": "Successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    },
-                    "200": {
-                        "description": "Successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    },
-                    "422": {
-                        "description": "Unprocessable Entity",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad request"
-                    },
-                    "404": {
-                        "description": "Resource Not Found"
-                    }
-                }
-            },
-            "put": {
-                "tags": [
-                    "Product"
-                ],
-                "summary": "Update existing Product",
-                "description": "Returns updated Product data",
-                "operationId": "ProductUdpate",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "id",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {}
-                        }
-                    }
-                },
-                "responses": {
-                    "201": {
-                        "description": "Product updated Successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    },
-                    "200": {
-                        "description": "Product updated Successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    },
-                    "422": {
-                        "description": "Unprocessable Entity",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad request"
-                    },
-                    "404": {
-                        "description": "Resource Not Found"
-                    }
-                }
-            },
-            "delete": {
-                "tags": [
-                    "Product"
-                ],
-                "summary": "Delete existing Product",
-                "description": "Deletes a record and returns no content",
-                "operationId": "deleteProduct",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "Product id",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Product deleted Successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    },
-                    "204": {
-                        "description": "Successful operation",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthenticated"
-                    },
-                    "403": {
-                        "description": "Forbidden"
-                    },
-                    "404": {
-                        "description": "Resource Not Found"
-                    }
-                }
-            }
-        },
-        "/api/products/product-option": {
-            "get": {
-                "tags": [
-                    "ProductOption"
-                ],
-                "summary": "Get list of ProductOption",
-                "description": "Returns list of ProductOption",
-                "operationId": "ProductOption",
-                "responses": {
-                    "201": {
-                        "description": "Successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    },
-                    "200": {
-                        "description": "Successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    },
-                    "422": {
-                        "description": "Unprocessable Entity",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad request"
-                    },
-                    "404": {
-                        "description": "Resource Not Found"
-                    }
-                }
-            },
-            "post": {
-                "tags": [
-                    "ProductOption"
-                ],
-                "summary": "Store ProductOption",
-                "description": "Returns ProductOption data",
-                "operationId": "ProductOptionStore",
-                "requestBody": {
-                    "content": {
-                        "multipart/form-data": {
-                            "schema": {}
-                        },
-                        "application/json": {
-                            "schema": {}
-                        }
-                    }
-                },
-                "responses": {
-                    "201": {
-                        "description": "ProductOption created Successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    },
-                    "200": {
-                        "description": "ProductOption created Successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    },
-                    "422": {
-                        "description": "Unprocessable Entity",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad request"
-                    },
-                    "404": {
-                        "description": "Resource Not Found"
-                    }
-                }
-            }
-        },
-        "/api/products/product-option/{id}": {
-            "get": {
-                "tags": [
-                    "ProductOption"
-                ],
-                "summary": "Get ProductOption information",
-                "description": "Returns ProductOption information",
-                "operationId": "productOptionGet",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "ProductOption id",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "responses": {
-                    "201": {
-                        "description": "Successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    },
-                    "200": {
-                        "description": "Successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    },
-                    "422": {
-                        "description": "Unprocessable Entity",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad request"
-                    },
-                    "404": {
-                        "description": "Resource Not Found"
-                    }
-                }
-            },
-            "put": {
-                "tags": [
-                    "ProductOption"
-                ],
-                "summary": "Update existing ProductOption",
-                "description": "Returns updated ProductOption data",
-                "operationId": "ProductOptionUdpate",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "id",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {}
-                        }
-                    }
-                },
-                "responses": {
-                    "201": {
-                        "description": "ProductOption updated Successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    },
-                    "200": {
-                        "description": "ProductOption updated Successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    },
-                    "422": {
-                        "description": "Unprocessable Entity",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad request"
-                    },
-                    "404": {
-                        "description": "Resource Not Found"
-                    }
-                }
-            },
-            "delete": {
-                "tags": [
-                    "ProductOption"
-                ],
-                "summary": "Delete existing ProductOption",
-                "description": "Deletes a record and returns no content",
-                "operationId": "deleteProductOption",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "ProductOption id",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "ProductOption deleted Successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    },
-                    "204": {
-                        "description": "Successful operation",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthenticated"
-                    },
-                    "403": {
-                        "description": "Forbidden"
-                    },
-                    "404": {
-                        "description": "Resource Not Found"
-                    }
-                }
-            }
-        },
-        "/api/products/product-options-value": {
-            "get": {
-                "tags": [
-                    "product options value"
-                ],
-                "summary": "Get list of ProductOptionsValue",
-                "description": "Returns list of ProductOptionsValue",
-                "operationId": "ProductOptionsValue",
-                "responses": {
-                    "201": {
-                        "description": "Successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    },
-                    "200": {
-                        "description": "Successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    },
-                    "422": {
-                        "description": "Unprocessable Entity",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad request"
-                    },
-                    "404": {
-                        "description": "Resource Not Found"
-                    }
-                }
-            },
-            "post": {
-                "tags": [
-                    "product options value"
-                ],
-                "summary": "Store ProductOptionsValue",
-                "description": "Returns ProductOptionsValue data",
-                "operationId": "ProductOptionsValueStore",
-                "requestBody": {
-                    "content": {
-                        "multipart/form-data": {
-                            "schema": {}
-                        },
-                        "application/json": {
-                            "schema": {}
-                        }
-                    }
-                },
-                "responses": {
-                    "201": {
-                        "description": "ProductOptionsValue created Successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    },
-                    "200": {
-                        "description": "ProductOptionsValue created Successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    },
-                    "422": {
-                        "description": "Unprocessable Entity",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad request"
-                    },
-                    "404": {
-                        "description": "Resource Not Found"
-                    }
-                }
-            }
-        },
-        "/api/products/product-options-value/{id}": {
-            "get": {
-                "tags": [
-                    "product options value"
-                ],
-                "summary": "Get ProductOptionsValue information",
-                "description": "Returns ProductOptionsValue information",
-                "operationId": "productOptionsValueGet",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "ProductOptionsValue id",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "responses": {
-                    "201": {
-                        "description": "Successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    },
-                    "200": {
-                        "description": "Successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    },
-                    "422": {
-                        "description": "Unprocessable Entity",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad request"
-                    },
-                    "404": {
-                        "description": "Resource Not Found"
-                    }
-                }
-            },
-            "put": {
-                "tags": [
-                    "product options value"
-                ],
-                "summary": "Update existing ProductOptionsValue",
-                "description": "Returns updated ProductOptionsValue data",
-                "operationId": "ProductOptionsValueUdpate",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "id",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {}
-                        }
-                    }
-                },
-                "responses": {
-                    "201": {
-                        "description": "ProductOptionsValue updated Successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    },
-                    "200": {
-                        "description": "ProductOptionsValue updated Successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    },
-                    "422": {
-                        "description": "Unprocessable Entity",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad request"
-                    },
-                    "404": {
-                        "description": "Resource Not Found"
-                    }
-                }
-            },
-            "delete": {
-                "tags": [
-                    "product options value"
-                ],
-                "summary": "Delete existing ProductOptionsValue",
-                "description": "Deletes a record and returns no content",
-                "operationId": "deleteProductOptionsValue",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "ProductOptionsValue id",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "ProductOptionsValue deleted Successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    },
-                    "204": {
-                        "description": "Successful operation",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthenticated"
-                    },
-                    "403": {
-                        "description": "Forbidden"
-                    },
-                    "404": {
-                        "description": "Resource Not Found"
-                    }
-                }
-            }
-        },
-        "/api/user": {
-            "get": {
-                "tags": [
-                    "User"
-                ],
-                "summary": "Get list of User",
-                "description": "Returns list of User",
-                "operationId": "User",
-                "responses": {
-                    "201": {
-                        "description": "Successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    },
-                    "200": {
-                        "description": "Successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    },
-                    "422": {
-                        "description": "Unprocessable Entity",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad request"
-                    },
-                    "404": {
-                        "description": "Resource Not Found"
-                    }
-                }
-            },
-            "post": {
-                "tags": [
-                    "User"
-                ],
-                "summary": "Store User",
-                "description": "Returns User data",
-                "operationId": "UserStore",
-                "requestBody": {
-                    "content": {
-                        "multipart/form-data": {
-                            "schema": {}
-                        },
-                        "application/json": {
-                            "schema": {}
-                        }
-                    }
-                },
-                "responses": {
-                    "201": {
-                        "description": "User created Successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    },
-                    "200": {
-                        "description": "User created Successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    },
-                    "422": {
-                        "description": "Unprocessable Entity",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad request"
-                    },
-                    "404": {
-                        "description": "Resource Not Found"
-                    }
-                }
-            }
-        },
-        "/api/user/{id}": {
-            "get": {
-                "tags": [
-                    "User"
-                ],
-                "summary": "Get User information",
-                "description": "Returns User information",
-                "operationId": "userGet",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "User id",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "responses": {
-                    "201": {
-                        "description": "Successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    },
-                    "200": {
-                        "description": "Successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    },
-                    "422": {
-                        "description": "Unprocessable Entity",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad request"
-                    },
-                    "404": {
-                        "description": "Resource Not Found"
-                    }
-                }
-            },
-            "put": {
-                "tags": [
-                    "User"
-                ],
-                "summary": "Update existing User",
-                "description": "Returns updated User data",
-                "operationId": "UserUdpate",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "id",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {}
-                        }
-                    }
-                },
-                "responses": {
-                    "201": {
-                        "description": "User updated Successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    },
-                    "200": {
-                        "description": "User updated Successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    },
-                    "422": {
-                        "description": "Unprocessable Entity",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad request"
-                    },
-                    "404": {
-                        "description": "Resource Not Found"
-                    }
-                }
-            },
-            "delete": {
-                "tags": [
-                    "User"
-                ],
-                "summary": "Delete existing User",
-                "description": "Deletes a record and returns no content",
-                "operationId": "deleteUser",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "User id",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "User deleted Successfully",
                         "content": {
                             "application/json": {
                                 "schema": {}
