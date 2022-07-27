@@ -24,5 +24,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::apiResource('/faq','App\Http\Controllers\Api\Faqs\FaqController'); 
 Route::apiResource('/faqs/faq-category','App\Http\Controllers\Api\Faqs\FaqCategoryController'); 
 Route::apiResource('/product','App\Http\Controllers\Api\Products\ProductController'); 
-Route::apiResource('/page','App\Http\Controllers\Api\Pages\PageController'); 
+Route::apiResource('/page','App\Http\Controllers\Api\Pages\PageController');  
 Route::apiResource('/pages/page-category','App\Http\Controllers\Api\Pages\PageCategoryController'); 
