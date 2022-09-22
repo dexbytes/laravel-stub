@@ -26,3 +26,4 @@ Route::apiResource('/faqs/faq-category','App\Http\Controllers\Api\Faqs\FaqCatego
 Route::apiResource('/product','App\Http\Controllers\Api\Products\ProductController'); 
 Route::apiResource('/page','App\Http\Controllers\Api\Pages\PageController');  
 Route::apiResource('/pages/page-category','App\Http\Controllers\Api\Pages\PageCategoryController'); 
+Route::apiResource('/products/product-category','App\Http\Controllers\Api\Products\ProductCategoryController'); 
